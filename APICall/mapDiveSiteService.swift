@@ -3,8 +3,7 @@
 //  mapTest
 //
 //  Created by Michiel Everts on 01-11-17.
-//  Copyright © 2017 Michiel Everts. All rights reserved.
-//
+//  Copyright © 2017 Michiel Everts. All rights reserved
 
 import Foundation
 import Alamofire
