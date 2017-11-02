@@ -14,7 +14,7 @@ import Alamofire
         private init() { // Singleton: https://en.wikipedia.org/wiki/Singleton_pattern
     }
         
-        func diveSearchDtail(id: String){
+    func diveSearchDtail(id: String){
             //http://api.divesites.com/?mode=detail&siteid=17559
     }
         

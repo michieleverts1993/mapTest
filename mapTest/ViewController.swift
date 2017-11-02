@@ -22,6 +22,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         // set location manager to self because this will delegate the the information from your map to itself
         locationManager.delegate = self
+        mapView.delegate = self //MUST SET UP ANY DELEGATES YOU WANT TO GET FEEDBACK FROM - B
         // set the location manager to ask Authorization
         self.locationManager.requestWhenInUseAuthorization()
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers),
@@ -45,13 +46,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let dropppedPinView = MKAnnotationView.init(annotation: droppedPin, reuseIdentifier: "Pin")//?
         dropppedPinView.tintColor = UIColor.blue
         self.mapView.addAnnotation(dropppedPinView.annotation!)
+        mapDiveSiteService.sharedInstance.getDiveSiteAPI(lat: touchedCoord.latitude, lng: touchedCoord.longitude, dist: 25)
+        setInitialZoomLocation(location: touchedCoord) //now call the zoom function to get the right zoom level on map - B
     }
 // func in wich u set the initial zoom radius, else the radius is random(too out r in zoomed)
 // A) set the delegate of mapView to self so that all the information recieved and passed are stored and send on the same View
 // B) here u set the radius of how wide u want u the initial room radius to be
 // C)
     func setInitialZoomLocation(location: CLLocationCoordinate2D) {
-        mapView.delegate = self//A
         let regionRadius: CLLocationDistance = 12500//B
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -86,7 +88,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.mapView.showAnnotations(annotations, animated: true)//D
         
     }
-// func that converts the data from the touch gesture into an actual annotation on your mapView in here you can customize the pin, give the pin func example: if u click the pin it opens a subView/detailView.
+    
+    //This is called for every annotation that you add to your map (when you call self.mapView.showAnnotations(annotations, animated: true) previously)
 // canShowCallout = true calls up a bubble in wich it display's the title and subtitle, if set, of the annotation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let pinView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "pinID")
@@ -97,9 +100,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
         pinView.image = #imageLiteral(resourceName: "fever-wild-west-pin-up-kostuum")
         return pinView
     }
-//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        <#code#>
-//    }
+    
+    //when callout is tapped
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let selectionAnnotation = view.annotation as? DiveMapAnnotation {
+            mapDiveSiteService.sharedInstance.diveSearchDtail(id: selectionAnnotation.diveSite.id)
+        }
+    }
 }
 
 
