@@ -16,5 +16,6 @@ struct DiveSiteProperties {
     var id: String
     var lng: Double
     var lat: Double
+    var 
     
 }

@@ -97,9 +97,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         pinView.image = #imageLiteral(resourceName: "fever-wild-west-pin-up-kostuum")
         return pinView
     }
-//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        <#code#>
-//    }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+    }
 }
 
 

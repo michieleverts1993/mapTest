@@ -8,14 +8,15 @@
 import Foundation
 import Alamofire
 
-    class mapDiveSiteService {
+class mapDiveSiteService {
         public static let sharedInstance = mapDiveSiteService()  // Singleton: https://en.wikipedia.org/wiki/Singleton_pattern
         
         private init() { // Singleton: https://en.wikipedia.org/wiki/Singleton_pattern
     }
         
-        func diveSearchDtail(id: String){
+    func diveSearchDetail(diveSite: DiveSiteProperties){
             //http://api.divesites.com/?mode=detail&siteid=17559
+            
     }
         
 // func that calls up the api, converts the data, u declare, and puts it into an array so that u can use it
